@@ -15,7 +15,7 @@
                 unit-jsc-common unit-jsc8 unit-jsc10 unit-jsc11 unit-jsc13
                 unit-jsc14 unit-jsc15 unit-jsc16 unit-jsc17 unit-jsc18"
          ver="1.28.0" rev="1"
-         date="" time=""
+         date="2022-09-13" time="18:00:00 +0300"
          packager="Nginx Packaging &lt;nginx-packaging@f5.com&gt;">
 
 <change>
@@ -28,7 +28,7 @@ NGINX Unit updated to 1.28.0.
 
 
 <changes apply="unit" ver="1.28.0" rev="1"
-         date="" time=""
+         date="2022-09-13" time="18:00:00 +0300"
          packager="Nginx Packaging &lt;nginx-packaging@f5.com&gt;">
 
 <change type="change">
@@ -45,13 +45,19 @@ disallowed abstract Unix domain socket syntax in non-Linux systems.
 
 <change type="feature">
 <para>
-supporting abstract UNIX sockets.
+basic statistics API.
 </para>
 </change>
 
 <change type="feature">
 <para>
-supporting UNIX sockets in address matching.
+customizable access log format.
+</para>
+</change>
+
+<change type="feature">
+<para>
+more HTTP variables support.
 </para>
 </change>
 
@@ -69,27 +75,25 @@ ability to get dynamic variables.
 
 <change type="feature">
 <para>
-more http variables support.
+support for abstract Unix sockets.
 </para>
 </change>
 
 <change type="feature">
 <para>
-added a new variable, $dollar, that translates to a literal "$" during
-variable substitution.
+support for Unix sockets in address matching.
 </para>
 </change>
 
 <change type="feature">
 <para>
-customizable access log format.
+the $dollar variable translates to a literal "$" during variable substitution.
 </para>
 </change>
 
 <change type="bugfix">
 <para>
-an index file that didn't contain a file extension was incorrectly
-handled, and caused a use-after-free bug.
+router process could crash if index file didn't contain an extension.
 </para>
 </change>
 
@@ -101,20 +105,26 @@ force SCRIPT_NAME in Ruby to always be an empty string.
 
 <change type="bugfix">
 <para>
-the ruby application process could crash if it's interrupted by SIGTERM signal.
-</para>
-</change>
-
-<change type="bugfix">
-<para>
-prevent the ruby application processes from crashing on SIGINT (^C).
-</para>
-</change>
-
-<change type="bugfix">
-<para>
 when isolated PID numbers reach the prototype process host PID,
 the prototype crashed.
+</para>
+</change>
+
+<change type="bugfix">
+<para>
+the Ruby application process could crash on SIGTERM.
+</para>
+</change>
+
+<change type="bugfix">
+<para>
+the Ruby application process could crash on SIGINT.
+</para>
+</change>
+
+<change type="bugfix">
+<para>
+mutex leak in the C API.
 </para>
 </change>
 
