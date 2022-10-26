@@ -14,6 +14,89 @@
                 unit-ruby
                 unit-jsc-common unit-jsc8 unit-jsc10 unit-jsc11 unit-jsc13
                 unit-jsc14 unit-jsc15 unit-jsc16 unit-jsc17 unit-jsc18"
+         ver="1.29.0" rev="1"
+         date="" time=""
+         packager="Nginx Packaging &lt;nginx-packaging@f5.com&gt;">
+
+<change>
+<para>
+NGINX Unit updated to 1.29.0.
+</para>
+</change>
+
+</changes>
+
+
+<changes apply="unit" ver="1.29.0" rev="1"
+         date="" time=""
+         packager="Nginx Packaging &lt;nginx-packaging@f5.com&gt;">
+
+<change type="change">
+<para>
+removed $uri auto-append for "share" when loading configuration.
+</para>
+</change>
+
+<change type="change">
+<para>
+prefer system crypto policy, instead of hardcoding a default.
+</para>
+</change>
+
+<change type="feature">
+<para>
+compatibility with OpenSSL 3.
+</para>
+</change>
+
+<change type="feature">
+<para>
+compatibility with PHP 8.2.
+</para>
+</change>
+
+<change type="feature">
+<para>
+support rack v3 in ruby applications.
+</para>
+</change>
+
+<change type="feature">
+<para>
+the $request_time variable contains the request processing time.
+</para>
+</change>
+
+<change type="feature">
+<para>
+report the regex status in configure summary.
+</para>
+</change>
+
+<change type="bugfix">
+<para>
+fix HTTP cookie parsing when the value contains an equals sign.
+</para>
+</change>
+
+<change type="bugfix">
+<para>
+fix error in connection statistics when using proxy.
+</para>
+</change>
+
+</changes>
+
+
+<changes apply="unit-php
+                unit-python unit-python2.7
+                unit-python3.4 unit-python3.5 unit-python3.6 unit-python3.7
+                unit-python3.8 unit-python3.9 unit-python3.10
+                unit-go
+                unit-perl
+                unit-ruby
+                unit-jsc-common unit-jsc8 unit-jsc10 unit-jsc11 unit-jsc13
+                unit-jsc14 unit-jsc15 unit-jsc16 unit-jsc17 unit-jsc18"
          ver="1.28.0" rev="1"
          date="2022-09-13" time="18:00:00 +0300"
          packager="Nginx Packaging &lt;nginx-packaging@f5.com&gt;">
@@ -124,7 +207,7 @@ the Ruby application process could crash on SIGINT.
 
 <change type="bugfix">
 <para>
-mutex leak in the C API.
+mutex leaks in the C API.
 </para>
 </change>
 

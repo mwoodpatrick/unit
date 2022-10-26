@@ -16,20 +16,20 @@
 #include <nxt_unit_request.h>
 
 
-#if PHP_VERSION_ID >= 50400
+#if (PHP_VERSION_ID >= 50400)
 #define NXT_HAVE_PHP_IGNORE_CWD 1
 #endif
 
-#if PHP_VERSION_ID >= 70100
+#if (PHP_VERSION_ID >= 70100)
 #define NXT_HAVE_PHP_LOG_MESSAGE_WITH_SYSLOG_TYPE 1
 #else
 #define NXT_HAVE_PHP_INTERRUPTS 1
 #endif
 
-#if PHP_VERSION_ID >= 70000
+#if (PHP_VERSION_ID >= 70000)
 #define NXT_PHP7 1
 #endif
-#if PHP_VERSION_ID >= 80000
+#if (PHP_VERSION_ID >= 80000)
 #define NXT_PHP8 1
 #endif
 
@@ -73,7 +73,7 @@ typedef int (*nxt_php_disable_t)(char *p, size_t size);
 typedef int (*nxt_php_disable_t)(char *p, uint TSRMLS_DC);
 #endif
 
-#if PHP_VERSION_ID < 70200
+#if (PHP_VERSION_ID < 70200)
 typedef void (*zif_handler)(INTERNAL_FUNCTION_PARAMETERS);
 #endif
 
@@ -139,7 +139,7 @@ static int nxt_php_read_post(char *buffer, uint count_bytes TSRMLS_DC);
 
 
 #ifdef NXT_PHP7
-#if PHP_VERSION_ID < 70200
+#if (PHP_VERSION_ID < 70200)
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_fastcgi_finish_request, 0, 0,
                                         _IS_BOOL, NULL, 0)
 #else
@@ -355,7 +355,7 @@ static nxt_php_target_t  *nxt_php_targets;
 static nxt_int_t         nxt_php_last_target = -1;
 
 static nxt_unit_ctx_t    *nxt_php_unit_ctx;
-#if defined(ZTS) && PHP_VERSION_ID < 70400
+#if defined(ZTS) && (PHP_VERSION_ID < 70400)
 static void              ***tsrm_ls;
 #endif
 
@@ -377,7 +377,7 @@ nxt_php_setup(nxt_task_t *task, nxt_process_t *process,
 
 #ifdef ZTS
 
-#if PHP_VERSION_ID >= 70400
+#if (PHP_VERSION_ID >= 70400)
     php_tsrm_startup();
 #else
     tsrm_startup(1, 1, 0, NULL);
@@ -1150,7 +1150,11 @@ nxt_php_vcwd_chdir(nxt_unit_request_info_t *req, u_char *dir)
 static int
 nxt_php_startup(sapi_module_struct *sapi_module)
 {
+#if (PHP_VERSION_ID < 80200)
     return php_module_startup(sapi_module, &nxt_php_unit_module, 1);
+#else
+    return php_module_startup(sapi_module, &nxt_php_unit_module);
+#endif
 }
 
 
@@ -1365,7 +1369,7 @@ nxt_php_register_variables(zval *track_vars_array TSRMLS_DC)
 
     nxt_php_set_sptr(req, "REMOTE_ADDR", &r->remote, r->remote_length,
                      track_vars_array TSRMLS_CC);
-    nxt_php_set_sptr(req, "SERVER_ADDR", &r->local, r->local_length,
+    nxt_php_set_sptr(req, "SERVER_ADDR", &r->local_addr, r->local_addr_length,
                      track_vars_array TSRMLS_CC);
 
     nxt_php_set_sptr(req, "SERVER_NAME", &r->server_name, r->server_name_length,

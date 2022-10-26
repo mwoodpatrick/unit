@@ -278,6 +278,8 @@ nxt_http_request_create(nxt_task_t *task)
     r->resp.content_length_n = -1;
     r->state = &nxt_http_request_init_state;
 
+    r->start_time = nxt_thread_monotonic_time(task->thread);
+
     task->thread->engine->requests_cnt++;
 
     return r;
@@ -1035,14 +1037,11 @@ nxt_http_cookie_parse(nxt_array_t *cookies, u_char *start, const u_char *end)
     for (p = start; p < end; p++) {
         c = *p;
 
-        if (c == '=') {
+        if (c == '=' && name == NULL) {
             while (start[0] == ' ') { start++; }
 
             name_length = p - start;
-
-            if (name_length != 0) {
-                name = start;
-            }
+            name = start;
 
             start = p + 1;
 
