@@ -1,4 +1,5 @@
 /build/
 Makefile
 *.pyc
+*.log
 __pycache__/
